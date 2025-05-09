@@ -6,26 +6,88 @@
 		<link rel="stylesheet" href="css/index.css" />
 	</head>
 	<body>
-	    <div class="sider">
-	        <div class="left">
-			<div class="logo"><a href="index.html"><img src="imags/logo-white.png" height="40"></a></div>
-			<h2>学生成绩管理系统</h2>
+		<div class="sider">
+			<div class="left">
+				<div class="logo"><a href="index.html"><img src="imags/logo-white.png" height="40"></a></div>
 			</div>
-	        <div class="center">
-			<ul>
-	            <li><a href="#">学生信息模块</a></li>
-	            <li><a href="#">课程信息模块</a></li>
-	            <li><a href="#">成绩信息模块</a></li>
-	        </ul>
+			<div class="center">
+				<h2>学生成绩管理系统</h2>
 			</div>
+			<!-- 			<div class="center">
+				<ul>
+					<li><a href="#">学生信息模块</a></li>
+					<li><a href="#">课程信息模块</a></li>
+					<li><a href="#">成绩信息模块</a></li>
+				</ul>
+			</div> -->
 			<div class="right">
-			<div class="user">
-				<span class="login"><a href="login.html">登录</a></span>
-				<span class="login">|</span>
-				<span class="login"><a href="register.html">注册</a></span>
+				<div class="user">
+					<span class="login"><a href="login.html">登录</a></span>
+					<span class="login">|</span>
+					<span class="login"><a href="register.html">注册</a></span>
+				</div>
 			</div>
+		</div>
+		<div class="top-bar">
+			<input type="text" id="searchInput" placeholder="搜索姓名/学号/课程">
+			<button onclick="openModal()">+ 添加学生</button>
+		</div>
+
+		<table id="grades-table">
+			<thead>
+				<tr class="title">
+					<th>学号</th>
+					<th>姓名</th>
+					<th>课程</th>
+					<th>成绩</th>
+					<th>操作</th>
+				</tr>
+				<tr>
+					<th>2456064XXXX</th>
+					<th>张三</th>
+					<th>高等数学</th>
+					<th>90</th>
+					<th><button>编辑</button><button class="delete">删除</button></th>
+				</tr>
+				<tr>
+					<th>2456064XXXX</th>
+					<th>张三</th>
+					<th>高等数学</th>
+					<th>90</th>
+					<th><button>编辑</button><button class="delete">删除</button></th>
+				</tr>
+				<tr>
+					<th>2456064XXXX</th>
+					<th>张三</th>
+					<th>高等数学</th>
+					<th>90</th>
+					<th><button>编辑</button><button class="delete">删除</button></th>
+				</tr>
+				<tr>
+					<th>2456064XXXX</th>
+					<th>张三</th>
+					<th>高等数学</th>
+					<th>90</th>
+					<th><button>编辑</button><button class="delete">删除</button></th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+
+		<!-- 添加/编辑弹窗 -->
+		<div id="modal">
+			<div id="modalContent">
+				<h3 id="modalTitle">添加学生</h3>
+				<input type="text" id="studentId" placeholder="学号">
+				<input type="text" id="studentName" placeholder="姓名">
+				<input type="text" id="course" placeholder="课程">
+				<input type="number" id="grade" placeholder="成绩">
+				<div class="actions">
+					<button id="submitBtn">提交</button>
+					<button onclick="closeModal()">取消</button>
+				</div>
 			</div>
-	    </div>
-		<div class></div>
+		</div>
+		<div class="bottom"><h1>Copyright 2025 by <a href="index.html">知绩云</a></h1></div>
 	</body>
 </html>
