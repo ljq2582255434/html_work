@@ -126,11 +126,7 @@ b a{
 	text-decoration: none;
 	color: black;
 }
-.password a{
-	text-decoration: none;
-	color: black;
-}
-.password a:hover{
+.password a:hover,h1 a:hover{
 	color: #4a99e2;
 }
 p{
@@ -157,4 +153,11 @@ body{
 }
 .logo img{
 	margin: 10px;
+}
+.password a,h1 a{
+	text-decoration: underline;
+	color: black;
+}
+h1 a{
+	color: black;
 }
