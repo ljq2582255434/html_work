@@ -1,0 +1,84 @@
+*{
+	padding: 0;margin: 0;
+}
+.sider {
+	display: flex;
+	padding: 10px 20px;
+	background-color: #4f4f4f;
+	height: 40px;
+	width: 100%;
+}
+	
+.sider h2 {
+	margin: 0 20px;
+	display: flex;
+	line-height: 40px;
+	color: white;
+}
+
+.sider ul {
+	list-style: none;
+	display: flex;
+	gap: 20px;
+	padding: 0;
+	line-height: 40px;
+}
+.sider ul li{
+	margin-left: 20px;
+	margin-right: 20px;
+	font-size: 20px;
+}
+.sider ul li:first-child{
+	margin-left: 50px;
+}
+.sider ul li:last-child{
+	margin-right: 0px;
+}
+.sider ul li a{
+	color: white;
+	text-decoration: none;
+}
+.sider ul li a:hover{
+	text-decoration: underline;
+}
+.login{
+	line-height: 40px;
+	color: white;
+}
+.login a{
+	color: white;
+	text-decoration: none;
+}
+.login a:hover{
+	text-decoration: underline;
+}
+.user {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px; 
+	padding: 10px 20px;
+	font-size: 18px;
+	margin-right: 30px;
+	width: 100%;
+}
+.left {
+	display: flex;
+	align-items: center;
+	color: white;
+}
+.center {
+	display: flex;
+	list-style: none;
+	gap: 30px;
+	margin-left: 40px;
+	flex: 1;
+}
+.right {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: white;
+	font-size: 16px;
+	white-space: nowrap;
+}
