@@ -11,6 +11,9 @@ fetch("http://localhost:5000/getGradesData")
       const tdStudentId = document.createElement("td");
       tdStudentId.textContent = row.student_id;
 
+      const tdStudentName = document.createElement("td");
+      tdStudentName.textContent = row.student_name;
+
       const tdCourse = document.createElement("td");
       tdCourse.textContent = row.course;
 
