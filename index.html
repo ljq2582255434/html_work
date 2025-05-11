@@ -1,157 +1,70 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>学生成绩管理系统</title>
-		<link rel="stylesheet" href="css/index.css" />
-	</head>
-	<body>
-		<div class="sider">
-			<div class="left">
-				<div class="logo"><a href="index.html"><img src="imags/logo-white.png" height="40"></a></div>
-			</div>
-			<div class="center">
-				<h2>学生成绩管理系统</h2>
-			</div>
-			<div class="right">
-				<div class="user">
-					<span class="login"><a href="login.html">登录</a></span>
-					<span class="login">|</span>
-					<span class="login"><a href="register.html">注册</a></span>
-				</div>
-			</div>
-		</div>
-		<div class="top-bar">
-			<input type="text" id="searchInput" placeholder="搜索姓名/学号/课程">
-			<button onclick="openModal()">+ 添加学生</button>
-		</div>
+  <head>
+    <meta charset="utf-8" />
+    <title>学生成绩管理系统</title>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <div class="sider">
+      <div class="left">
+        <div class="logo">
+          <a href="index.html"
+            ><img src="imags/logo-white.png" height="40"
+          /></a>
+        </div>
+      </div>
+      <div class="center">
+        <h2>学生成绩管理系统</h2>
+      </div>
+      <div class="right">
+        <div class="user">
+          <span class="login"><a href="login.html">登录</a></span>
+          <span class="login">|</span>
+          <span class="login"><a href="register.html">注册</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="top-bar">
+      <input type="text" id="searchInput" placeholder="搜索姓名/学号/课程" />
+      <button onclick="openModal()">+ 添加学生</button>
+    </div>
 
-		<table id="grades-table">
-			<thead>
-				<tr class="title">
-					<th>学号</th>
-					<th>课程</th>
-					<th>成绩</th>
-					<th>操作</th>
-				</tr>
-				<tr>
-					<th>2456064XXXX</th>
-					<th>高等数学</th>
-					<th>90</th>
-					<th><button>编辑</button><button class="delete">删除</button></th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
+    <table id="grades-table">
+      <thead>
+        <tr class="title">
+          <th>学号</th>
+          <th>课程</th>
+          <th>成绩</th>
+          <th>操作</th>
+        </tr>
+        <tr>
+          <th>2456064XXXX</th>
+          <th>高等数学</th>
+          <th>90</th>
+          <th><button>编辑</button><button class="delete">删除</button></th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-		<!-- 添加/编辑弹窗 -->
-		<div id="modal">
-			<div id="modalContent">
-				<h3 id="modalTitle">添加学生</h3>
-				<input type="text" id="studentId" placeholder="学号">
-				<input type="text" id="studentName" placeholder="姓名">
-				<input type="text" id="course" placeholder="课程">
-				<input type="number" id="grade" placeholder="成绩">
-				<div class="actions">
-					<button id="submitBtn">提交</button>
-					<button onclick="closeModal()">取消</button>
-				</div>
-			</div>
-		</div>
-		<div class="bottom"><h1>Copyright 2025 by <a href="index.html">知绩云</a></h1></div>
-	    <script>
-	        // 使用 fetch 获取后端数据并填充表格
-	        fetch('http://localhost:5000/getGradesData')
-	            .then(response => response.json())  // 解析返回的 JSON 数据
-	            .then(data => {
-	                const tableBody = document.querySelector('#grades-table tbody');
-	                data.forEach(row => {
-	                    // 创建新的表格行
-	                    const tr = document.createElement('tr');
-	
-	                    // 创建并填充每个单元格
-	                    const tdStudentId = document.createElement('td');
-	                    tdStudentId.textContent = row.student_id;
-	
-	                    const tdCourse = document.createElement('td');
-	                    tdCourse.textContent = row.course;
-	
-	                    const tdScore = document.createElement('td');
-	                    tdScore.textContent = row.score;
-	
-	                    // 创建操作列（编辑和删除按钮）
-	                    const tdActions = document.createElement('td');
-	                    const editButton = document.createElement('button');
-	                    editButton.textContent = '编辑';
-	                    const deleteButton = document.createElement('button');
-	                    deleteButton.textContent = '删除';
-	                    deleteButton.classList.add('delete');
-	
-	                    // 将按钮加入操作列
-	                    tdActions.appendChild(editButton);
-	                    tdActions.appendChild(deleteButton);
-	
-	                    // 将单元格加入到行中
-	                    tr.appendChild(tdStudentId);
-	                    tr.appendChild(tdCourse);
-	                    tr.appendChild(tdScore);
-	                    tr.appendChild(tdActions);
-	
-	                    // 将行加入到表格的 tbody 中
-	                    tableBody.appendChild(tr);
-	                });
-	            })
-	            .catch(error => {
-	                console.error('获取数据失败:', error);
-	            });
-	
-	        // 处理删除操作
-	        document.querySelector('tbody').addEventListener('click', function(event) {
-	            if (event.target && event.target.classList.contains('delete')) {
-	                const row = event.target.closest('tr');
-	                row.remove();  // 删除行
-	            }
-	        });
-	
-	        // 处理编辑操作
-	        document.querySelector('tbody').addEventListener('click', function(event) {
-	            if (event.target && event.target.textContent === '编辑') {
-	                const row = event.target.closest('tr');
-	                const cells = row.querySelectorAll('td');
-	
-	                // 将表格单元格变为可编辑状态
-	                cells[0].setAttribute('contenteditable', 'true');
-	                cells[1].setAttribute('contenteditable', 'true');
-	                cells[2].setAttribute('contenteditable', 'true');
-	
-	                // 将编辑按钮改为保存按钮
-	                event.target.textContent = '保存';
-	                event.target.classList.remove('edit');
-	                event.target.classList.add('save');
-	            }
-	
-	            if (event.target && event.target.textContent === '保存') {
-	                const row = event.target.closest('tr');
-	                const cells = row.querySelectorAll('td');
-	
-	                // 将单元格恢复为不可编辑
-	                cells[0].removeAttribute('contenteditable');
-	                cells[1].removeAttribute('contenteditable');
-	                cells[2].removeAttribute('contenteditable');
-	
-	                // 将保存按钮改为编辑按钮
-	                event.target.textContent = '编辑';
-	                event.target.classList.remove('save');
-	                event.target.classList.add('edit');
-	
-	                // 在这里你可以将编辑后的数据发送到后端（如果需要）
-	                console.log('保存数据:', {
-	                    student_id: cells[0].textContent,
-	                    course: cells[1].textContent,
-	                    score: cells[2].textContent
-	                });
-	            }
-	        });
-	    </script>
-	</body>
+    <!-- 添加/编辑弹窗 -->
+    <div id="modal">
+      <div id="modalContent">
+        <h3 id="modalTitle">添加学生</h3>
+        <input type="text" id="studentId" placeholder="学号" />
+        <input type="text" id="studentName" placeholder="姓名" />
+        <input type="text" id="course" placeholder="课程" />
+        <input type="number" id="grade" placeholder="成绩" />
+        <div class="actions">
+          <button id="submitBtn">提交</button>
+          <button onclick="closeModal()">取消</button>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <h1>Copyright 2025 by <a href="index.html">知绩云</a></h1>
+    </div>
+    <script src="/js/index.js"></script>
+  </body>
 </html>
