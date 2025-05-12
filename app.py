@@ -21,6 +21,55 @@ def register():  # 修改为register
 def index_page():  # 修改为index_page
     return render_template('index.html')
 
+@app.route('/api/register', methods=['POST'])
+def api_register():
+    data = request.get_json()
+    student_id = data.get('student_id')
+    password = data.get('password')
+
+    if not student_id or not password:
+        return jsonify({'success': False, 'message': '学号或密码不能为空'}), 400
+
+    try:
+        conn = sqlite3.connect('zjy.db')
+        cursor = conn.cursor()
+
+        # 检查学号是否已注册
+        cursor.execute('SELECT * FROM students WHERE student_id=?', (student_id,))
+        if cursor.fetchone():
+            conn.close()
+            return jsonify({'success': False, 'message': '该学号已注册'})
+
+        # 插入数据
+        cursor.execute('INSERT INTO students (student_id, password) VALUES (?, ?)', (student_id, password))
+        conn.commit()
+        conn.close()
+        return jsonify({'success': True})
+    except Exception as e:
+        print('注册出错:', e)
+        return jsonify({'success': False, 'message': '服务器内部错误'}), 500
+
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data=request.get_json()
+    student_id=data.get('student_id')
+    password=data.get('password')
+
+    if not student_id or not password:
+        return jsonify({'success':False,'message':'缺少学号或密码'}),400
+
+    conn=sqlite3.connect('zjy.db')
+    cursor=conn.cursor()
+    cursor.execute('SELECT * FROM students WHERE student_id=? AND password=?',(student_id,password))
+    user=cursor.fetchone()
+    conn.close()
+
+    if user:
+        return jsonify({'success':True})
+    else:
+        return jsonify({'success':False,'message':'学号或密码错误'})
+
+
 @app.route('/getMultiTableData')
 def get_multi_table_data():
     table_names = request.args.get('tables')  # 比如 "students,grades"

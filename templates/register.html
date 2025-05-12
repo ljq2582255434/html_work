@@ -26,6 +26,7 @@
           <b><a href="{{ url_for('register') }}">注册</a></b>
           <div class="login-text">学号</div>
           <input
+            id="studentId"
             name="account"
             class="account"
             type="text"
@@ -33,6 +34,7 @@
           />
           <div class="login-text">密码</div>
           <input
+            id="password"
             name="account"
             class="account"
             type="password"
@@ -40,6 +42,7 @@
           />
           <div class="login-text">确认密码</div>
           <input
+            id="confirmPassword"
             name="account"
             class="account"
             type="password"
@@ -60,5 +63,6 @@
         <h1>Copyright 2025 by <a href="{{ url_for('index') }}">知绩云</a></h1>
       </div>
     </div>
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
   </body>
 </html>
