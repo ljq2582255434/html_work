@@ -136,7 +136,6 @@ p{
 	margin-left: auto;
 	margin-left: auto;
 	text-align: center;
-	margin-top: 30px;
 	margin-bottom: 30px;
 }
 
@@ -151,7 +150,7 @@ input:focus{
 	outline: none;
 }
 .logo img{
-	margin: 10px;
+	margin: 20px;
 }
 .password a,h1 a{
 	text-decoration: underline;

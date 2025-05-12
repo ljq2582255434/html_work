@@ -1,32 +1,64 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>注册</title>
-		<link rel="stylesheet" href="css/register.css" />
-		<div class="logo"><a href="index.html"><img src="imags/logo.png" height="40"></a></div>
-	</head>
-	<body>
-		<div class="bg"></div>
-		<div class="main-content">
-		<div class="zhengwen">
-		<p><b>学生成绩管理查询系统</b></p>
-		<div class="login-zhengwen">
-			<strong><a href="login.html">登录</a></strong>
-			<b><a href="register.html">注册</a></b>
-			<div class="login-text">学号</div>
-			<input name="account" class="account" type="text" placeholder="学号">
-			<div class="login-text">密码</div>
-			<input name="account" class="account" type="password" placeholder="密码">
-			<div class="login-text">确认密码</div>
-			<input name="account" class="account" type="password" placeholder="确认密码"><br>
-			<div class="checkbox-text"><input type="checkbox" name="checkbox" id="checkbox">已阅读并同意用户协议和隐私政策
-			</div>
-			<button type="button">注 册</button>
-			<div class="password">已有账号？<a href="login.html">去登录</a></div>
-		</div>
-		<h1>Copyright 2025 by <a href="index.html">知绩云</a></h1>
-		</div>
-		</div>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>注册</title>
+    <div class="logo">
+      <a href="{{ url_for('index') }}"
+        ><img
+          src="{{ url_for('static', filename='imags/logo.png') }}"
+          alt="Logo"
+          height="50"
+      /></a>
+    </div>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/register.css') }}"
+    />
+  </head>
+  <body>
+    <div class="bg"></div>
+    <div class="main-content">
+      <div class="zhengwen">
+        <p><b>学生成绩管理查询系统</b></p>
+        <div class="login-zhengwen">
+          <strong><a href="{{ url_for('login') }}">登录</a></strong>
+          <b><a href="{{ url_for('register') }}">注册</a></b>
+          <div class="login-text">学号</div>
+          <input
+            name="account"
+            class="account"
+            type="text"
+            placeholder="学号"
+          />
+          <div class="login-text">密码</div>
+          <input
+            name="account"
+            class="account"
+            type="password"
+            placeholder="密码"
+          />
+          <div class="login-text">确认密码</div>
+          <input
+            name="account"
+            class="account"
+            type="password"
+            placeholder="确认密码"
+          /><br />
+          <div class="checkbox-text">
+            <input
+              type="checkbox"
+              name="checkbox"
+              id="checkbox"
+            />已阅读并同意用户协议和隐私政策
+          </div>
+          <button type="button">注 册</button>
+          <div class="password">
+            已有账号？<a href="{{ url_for('login') }}">去登录</a>
+          </div>
+        </div>
+        <h1>Copyright 2025 by <a href="{{ url_for('index') }}">知绩云</a></h1>
+      </div>
+    </div>
+  </body>
 </html>
