@@ -70,6 +70,35 @@ def api_login():
     else:
         return jsonify({'success': False, 'message': '学号或密码错误'}), 401
 
+@app.route('/saveStudentGrade', methods=['POST', 'OPTIONS'])
+def save_student_grade():
+    if request.method == 'OPTIONS':
+        # 预检请求直接返回 200
+        return jsonify({'message': 'CORS preflight OK'}), 200
+
+    data = request.get_json()
+    student_id = data.get('student_id')
+    course_name = data.get('course')
+    grade = data.get('score')
+    
+
+    if not student_id or not course_name or grade is None:
+        return jsonify({'success': False, 'message': '参数不完整'}), 400
+
+    try:
+        conn = sqlite3.connect('zjy.db')
+        cursor = conn.cursor()
+        cursor.execute(
+            'INSERT OR REPLACE INTO grades (student_id, course, score) VALUES (?, ?, ?)',
+            (student_id, course_name, grade)
+        )
+        conn.commit()
+        conn.close()
+        return jsonify({'success': True})
+    except Exception as e:
+        print('保存成绩出错:', e)
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 @app.route('/getMultiTableData')
 def get_multi_table_data():
     student_id = request.args.get('student_id')

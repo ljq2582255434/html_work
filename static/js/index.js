@@ -55,13 +55,30 @@ window.onload = function () {
           tdScore.textContent = g.score;
 
           const tdActions = document.createElement("td");
-          const editButton = document.createElement("button");
-          editButton.textContent = "编辑";
-          const deleteButton = document.createElement("button");
-          deleteButton.textContent = "删除";
-          deleteButton.classList.add("delete");
-          tdActions.appendChild(editButton);
-          tdActions.appendChild(deleteButton);
+
+          if (isAdmin) {
+            const editButton = document.createElement("button");
+            editButton.textContent = "编辑";
+            editButton.onclick = () =>
+              openModal(
+                g.student_id,
+                studentMap.get(g.student_id) || "未知",
+                g.course,
+                g.score
+              );
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "删除";
+            deleteButton.classList.add("delete");
+            deleteButton.onclick = () => deleteGrade(g.student_id);
+
+            tdActions.appendChild(editButton);
+            tdActions.appendChild(deleteButton);
+          } else {
+            const noPermissionText = document.createElement("span");
+            noPermissionText.textContent = "您无权限";
+            tdActions.appendChild(noPermissionText);
+          }
 
           tr.appendChild(tdId);
           tr.appendChild(tdName);
@@ -83,4 +100,98 @@ function logout() {
   localStorage.removeItem("student_name");
   localStorage.removeItem("is_admin");
   window.location.href = "/login";
+}
+
+function openModal(studentId = "", studentName = "", course = "", score = "") {
+  const modal = document.querySelector("#modal");
+  const modalTitle = document.querySelector("#modalTitle");
+  const studentIdInput = document.querySelector("#studentId");
+  const studentNameInput = document.querySelector("#studentName");
+  const courseInput = document.querySelector("#course");
+  const gradeInput = document.querySelector("#grade");
+
+  if (studentId) {
+    modalTitle.textContent = "编辑学生";
+  } else {
+    modalTitle.textContent = "添加学生";
+  }
+
+  studentIdInput.value = studentId;
+  studentNameInput.value = studentName;
+  courseInput.value = course;
+  gradeInput.value = score;
+
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  const modal = document.querySelector("#modal");
+  modal.style.display = "none";
+}
+
+document.querySelector("#submitBtn").onclick = function () {
+  const studentId = document.querySelector("#studentId").value;
+  const studentName = document.querySelector("#studentName").value;
+  const course = document.querySelector("#course").value;
+  const grade = document.querySelector("#grade").value;
+
+  const isAdmin = localStorage.getItem("is_admin") === "true";
+
+  if (isAdmin) {
+    const action = studentId ? "edit" : "add";
+
+    fetch("/saveStudentGrade", {
+      method: "POST",
+      body: JSON.stringify({
+        action,
+        studentId,
+        studentName,
+        course,
+        grade,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          alert("操作失败");
+        }
+      })
+      .catch((err) => {
+        console.error("操作失败:", err);
+      });
+  } else {
+    alert("您没有权限进行此操作");
+  }
+};
+
+function deleteGrade(studentId) {
+  const isAdmin = localStorage.getItem("is_admin") === "true";
+
+  if (isAdmin) {
+    fetch("/deleteStudentGrade", {
+      method: "POST",
+      body: JSON.stringify({ studentId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          alert("删除失败");
+        }
+      })
+      .catch((err) => {
+        console.error("删除失败:", err);
+      });
+  } else {
+    alert("您没有权限进行此操作");
+  }
 }
