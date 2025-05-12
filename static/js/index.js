@@ -6,19 +6,24 @@ window.onload = function () {
   const loginLink = document.querySelector("#loginLink");
   const registerLink = document.querySelector("#registerLink");
   const divider = document.querySelector("#divider");
+  const loginPrompt = document.querySelector("#loginPrompt");
 
   if (studentName) {
+    // 显示欢迎信息并控制登录/注册链接显示
     welcomeMessage.textContent = `欢迎您, ${studentName}`;
     logoutBtn.style.display = "inline";
     loginLink.style.display = "none";
     registerLink.style.display = "none";
     divider.style.display = "none";
+    loginPrompt.style.display = "none"; // 隐藏“请先登录”
   } else {
+    // 显示“请先登录”信息
     welcomeMessage.textContent = "";
     logoutBtn.style.display = "none";
     loginLink.style.display = "inline";
     registerLink.style.display = "inline";
     divider.style.display = "inline";
+    loginPrompt.style.display = "block"; // 显示“请先登录”
   }
 
   const studentId = localStorage.getItem("student_id");
@@ -94,12 +99,11 @@ window.onload = function () {
       console.error("获取数据失败:", err);
     });
 };
-
 function logout() {
   localStorage.removeItem("student_id");
   localStorage.removeItem("student_name");
   localStorage.removeItem("is_admin");
-  window.location.href = "/login";
+  window.location.href = "/login"; // 跳转到登录页面
 }
 
 function openModal(studentId = "", studentName = "", course = "", score = "") {

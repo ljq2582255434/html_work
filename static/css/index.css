@@ -216,3 +216,21 @@ h1 a {
 h1 a:hover {
   color: #4a99e2;
 }
+.center-login h2 {
+  text-align: center;
+  margin: auto;
+  line-height: 100px;
+  font-size: 30px;
+}
+.center-login {
+  height: 100px;
+  width: 100%;
+}
+.center-login a {
+  color: black;
+  text-decoration: none;
+}
+.center-login a:hover {
+  text-decoration: underline;
+  color: #4a99e2;
+}

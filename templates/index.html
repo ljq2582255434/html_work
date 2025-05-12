@@ -14,7 +14,7 @@
         <div class="logo">
           <a href="{{ url_for('index') }}"
             ><img
-              src="{{ url_for('static', filename='imags/logo.png') }}"
+              src="{{ url_for('static', filename='imags/logo_white.png') }}"
               alt="Logo"
               height="45"
           /></a>
@@ -44,9 +44,6 @@
     <div class="top-bar">
       <button onclick="openModal()">添加学生</button>
     </div>
-    <div class="center" id="loginPrompt" style="display: none">
-      <h2>请先<a href="{{ url_for('login') }}">登录</a></h2>
-    </div>
     <table id="grades-table">
       <thead>
         <tr class="title">
@@ -59,7 +56,9 @@
       </thead>
       <tbody></tbody>
     </table>
-
+    <div class="center-login" id="loginPrompt" style="display: none">
+      <h2>请先<a href="{{ url_for('login') }}">登录</a></h2>
+    </div>
     <!-- 添加/编辑弹窗 -->
     <div id="modal">
       <div id="modalContent">
