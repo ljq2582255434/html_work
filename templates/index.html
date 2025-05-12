@@ -25,9 +25,17 @@
       </div>
       <div class="right">
         <div class="user">
-          <span class="login"><a href="{{ url_for('login') }}">登录</a></span>
-          <span class="login">|</span>
-          <span class="login"
+          <span id="welcomeMessage"></span>
+          <!-- 显示欢迎信息 -->
+          <span class="login" id="logoutBtn" style="display: none">
+            <a href="javascript:logout()">退出</a>
+          </span>
+
+          <span class="login" id="loginLink"
+            ><a href="{{ url_for('login') }}">登录</a></span
+          >
+          <span class="login" id="divider">|</span>
+          <span class="login" id="registerLink"
             ><a href="{{ url_for('register') }}">注册</a></span
           >
         </div>
@@ -37,7 +45,9 @@
       <input type="text" id="searchInput" placeholder="搜索姓名/学号/课程" />
       <button onclick="openModal()">+ 添加学生</button>
     </div>
-
+    <div class="center" id="loginPrompt" style="display: none">
+      <h2>请先<a href="{{ url_for('login') }}">登录</a></h2>
+    </div>
     <table id="grades-table">
       <thead>
         <tr class="title">

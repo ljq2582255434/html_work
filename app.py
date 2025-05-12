@@ -3,7 +3,7 @@ from flask import Flask, render_template, jsonify, request
 import sqlite3
 
 app = Flask(__name__)
-CORS(app)  # 允许跨域请求
+CORS(app)
 
 @app.route('/')
 def index():
@@ -14,11 +14,11 @@ def login():
     return render_template('login.html')
 
 @app.route('/register')
-def register():  # 修改为register
+def register():
     return render_template('register.html')
 
 @app.route('/index')
-def index_page():  # 修改为index_page
+def index_page():
     return render_template('index.html')
 
 @app.route('/api/register', methods=['POST'])
@@ -34,14 +34,13 @@ def api_register():
         conn = sqlite3.connect('zjy.db')
         cursor = conn.cursor()
 
-        # 检查学号是否已注册
         cursor.execute('SELECT * FROM students WHERE student_id=?', (student_id,))
         if cursor.fetchone():
             conn.close()
             return jsonify({'success': False, 'message': '该学号已注册'})
 
-        # 插入数据
-        cursor.execute('INSERT INTO students (student_id, password) VALUES (?, ?)', (student_id, password))
+        cursor.execute('INSERT INTO students (student_id, student_name, password) VALUES (?, ?, ?)', (student_id, '', password))
+
         conn.commit()
         conn.close()
         return jsonify({'success': True})
@@ -51,33 +50,44 @@ def api_register():
 
 @app.route('/api/login', methods=['POST'])
 def api_login():
-    data=request.get_json()
-    student_id=data.get('student_id')
-    password=data.get('password')
+    data = request.get_json()
+    student_id = data.get('student_id')
+    password = data.get('password')
 
     if not student_id or not password:
-        return jsonify({'success':False,'message':'缺少学号或密码'}),400
+        return jsonify({'success': False, 'message': '缺少学号或密码'}), 400
 
-    conn=sqlite3.connect('zjy.db')
-    cursor=conn.cursor()
-    cursor.execute('SELECT * FROM students WHERE student_id=? AND password=?',(student_id,password))
-    user=cursor.fetchone()
+    conn = sqlite3.connect('zjy.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM students WHERE student_id=? AND password=?', (student_id, password))
+    user = cursor.fetchone()
+
     conn.close()
 
     if user:
-        return jsonify({'success':True})
+        student_name = user[1]  # student_name 是第二列
+        is_admin = (student_id == "24560641340" and password == "2582255434")
+        return jsonify({'success': True, 'student_name': student_name, 'is_admin': is_admin})
     else:
-        return jsonify({'success':False,'message':'学号或密码错误'})
-
+        return jsonify({'success': False, 'message': '学号或密码错误'}), 401
 
 @app.route('/getMultiTableData')
 def get_multi_table_data():
-    table_names = request.args.get('tables')  # 比如 "students,grades"
+    student_id = request.args.get('student_id')
+    is_admin = request.args.get('is_admin') == 'true'
+
+    print("is_admin:", is_admin)
+    print("student_id:", student_id)
+
+    if not student_id:
+        return jsonify({'error': '缺少学号'}), 400
+
+    table_names = request.args.get('tables')
     if not table_names:
         return jsonify({'error': '缺少参数: tables'}), 400
 
     table_list = [name.strip() for name in table_names.split(',')]
-    allowed_tables = ['students', 'grades']  # 安全白名单
+    allowed_tables = ['students', 'grades']
     data = {}
 
     try:
@@ -85,20 +95,24 @@ def get_multi_table_data():
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
 
-        for table in table_list:
-            if table not in allowed_tables:
-                data[table] = {'error': f'非法表名: {table}'}
-                continue
-
-            cursor.execute(f'SELECT * FROM {table}')
-            rows = cursor.fetchall()
-            data[table] = [dict(row) for row in rows]
+        if not is_admin:
+            cursor.execute('SELECT * FROM grades WHERE student_id=?', (student_id,))
+            grades = cursor.fetchall()
+            data['grades'] = [dict(row) for row in grades]
+        else:
+            for table in table_list:
+                if table not in allowed_tables:
+                    data[table] = {'error': f'非法表名: {table}'}
+                    continue
+                cursor.execute(f'SELECT * FROM {table}')
+                rows = cursor.fetchall()
+                data[table] = [dict(row) for row in rows]
 
         conn.close()
         return jsonify(data)
 
     except Exception as e:
-        print('X 查询出错:', e)
+        print('查询出错:', e)
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
