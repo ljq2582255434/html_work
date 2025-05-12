@@ -61,7 +61,6 @@ def api_login():
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM students WHERE student_id=? AND password=?', (student_id, password))
     user = cursor.fetchone()
-
     conn.close()
 
     if user:
@@ -96,9 +95,16 @@ def get_multi_table_data():
         cursor = conn.cursor()
 
         if not is_admin:
+            # 获取学生成绩
             cursor.execute('SELECT * FROM grades WHERE student_id=?', (student_id,))
             grades = cursor.fetchall()
             data['grades'] = [dict(row) for row in grades]
+
+            # 获取学生基本信息
+            cursor.execute('SELECT student_id, student_name FROM students WHERE student_id=?', (student_id,))
+            student = cursor.fetchone()
+            if student:
+                data['students'] = [dict(student)]
         else:
             for table in table_list:
                 if table not in allowed_tables:
