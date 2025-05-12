@@ -1,218 +1,218 @@
 * {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .sider {
-	display: flex;
-	padding: 10px 20px;
-	background-color: #4f4f4f;
-	height: 40px;
-	width: 100%;
+  display: flex;
+  padding: 10px 20px;
+  background-color: #4f4f4f;
+  height: 40px;
+  width: 100%;
 }
 
 .sider h2 {
-	margin: 0 20px;
-	display: flex;
-	line-height: 40px;
-	color: white;
+  margin: 0 20px;
+  display: flex;
+  line-height: 40px;
+  color: white;
 }
 
 .sider ul {
-	list-style: none;
-	display: flex;
-	gap: 20px;
-	padding: 0;
-	line-height: 40px;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  line-height: 40px;
 }
 
 .sider ul li {
-	margin-left: 20px;
-	margin-right: 20px;
-	font-size: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 20px;
 }
 
 .sider ul li:first-child {
-	margin-left: 50px;
+  margin-left: 50px;
 }
 
 .sider ul li:last-child {
-	margin-right: 0px;
+  margin-right: 0px;
 }
 
 .sider ul li a {
-	color: white;
-	text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .sider ul li a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .login {
-	line-height: 40px;
-	color: white;
+  line-height: 40px;
+  color: white;
 }
 
 .login a {
-	color: white;
-	text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .login a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .user {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	gap: 10px;
-	padding: 10px 20px;
-	font-size: 18px;
-	margin-right: 30px;
-	width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  margin-right: 30px;
+  width: 100%;
 }
 
 .left {
-	display: flex;
-	align-items: center;
-	color: white;
+  display: flex;
+  align-items: center;
+  color: white;
 }
 
 .center {
-	display: flex;
-	list-style: none;
-	gap: 30px;
-	margin-left: 40px;
-	flex: 1;
-	justify-content: center;
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin-left: 40px;
+  flex: 1;
+  justify-content: center;
 }
 
 .right {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	color: white;
-	font-size: 16px;
-	white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
 body {
-	font-family: "微软雅黑", sans-serif;
-	background: #f0f2f5;
+  font-family: "微软雅黑", sans-serif;
+  background: #f0f2f5;
 }
 
 h1 {
-	text-align: center;
-	margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .top-bar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 15px;
 }
-.top-bar input,.top-bar button{
-	margin-top: 10px;
-	margin-left: 20px;
-	margin-right: 20px;
+.top-bar button {
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 #searchInput {
-	padding: 8px;
-	width: 280px;
-	font-size: 16px;
-	border: 2px solid #ccc;
-	border-radius: 5px;
+  padding: 8px;
+  width: 280px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
 }
 
 button {
-	padding: 8px 16px;
-	background-color: #4a99e2;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 16px;
+  padding: 8px 16px;
+  background-color: #4a99e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 button:hover {
-	background-color: #357ec7;
+  background-color: #357ec7;
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	background: white;
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
 }
 
 th,
 td {
-	padding: 12px;
-	text-align: center;
-	border-bottom: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .title th {
-	background-color: #4a99e2;
-	color: white;
+  background-color: #4a99e2;
+  color: white;
 }
-.delete{
-	margin-left: 30px;
-	background-color: #ff0000;
+.delete {
+  margin-left: 30px;
+  background-color: #ff0000;
 }
-.delete:hover{
-	background-color: #ef0000;
+.delete:hover {
+  background-color: #ef0000;
 }
 td button {
-	margin: 0 4px;
+  margin: 0 4px;
 }
 
 #modal {
-	display: none;
-	position: fixed;
-	left: 0;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, 0.5);
-	justify-content: center;
-	align-items: center;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
 }
 
 #modalContent {
-	background: white;
-	padding: 20px;
-	border-radius: 8px;
-	width: 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
 }
 
 #modalContent input {
-	width: 100%;
-	margin-bottom: 10px;
-	padding: 8px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #modalContent h3 {
-	margin-top: 0;
+  margin-top: 0;
 }
 
 .actions {
-	text-align: right;
+  text-align: right;
 }
-h1{
-	font-size: 18px;
-	text-align: center;
-	margin-bottom: 50px;
-	font-weight: 400;
-	margin-top: 20px;
+h1 {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 400;
+  margin-top: 20px;
 }
-h1 a{
-	color: black;
+h1 a {
+  color: black;
 }
-h1 a:hover{
-	color: #4a99e2;
+h1 a:hover {
+  color: #4a99e2;
 }
