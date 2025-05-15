@@ -41,9 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="top-bar">
-      <button onclick="openModal()">添加学生</button>
-    </div>
+
     <table id="grades-table">
       <thead>
         <tr class="title">
@@ -59,20 +57,7 @@
     <div class="center-login" id="loginPrompt" style="display: none">
       <h2>请先<a href="{{ url_for('login') }}">登录</a></h2>
     </div>
-    <!-- 添加/编辑弹窗 -->
-    <div id="modal">
-      <div id="modalContent">
-        <h3 id="modalTitle">添加学生</h3>
-        <input type="text" id="studentId" placeholder="学号" />
-        <input type="text" id="studentName" placeholder="姓名" />
-        <input type="text" id="course" placeholder="课程" />
-        <input type="number" id="grade" placeholder="成绩" />
-        <div class="actions">
-          <button id="submitBtn">提交</button>
-          <button onclick="closeModal()">取消</button>
-        </div>
-      </div>
-    </div>
+
     <div class="bottom">
       <h1>Copyright 2025 by <a href="{{ url_for('index') }}">知绩云</a></h1>
     </div>
