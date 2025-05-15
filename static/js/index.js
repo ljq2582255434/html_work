@@ -81,9 +81,10 @@ window.onload = function () {
             tdActions.appendChild(editButton);
             tdActions.appendChild(deleteButton);
           } else {
-            const noPermissionText = document.createElement("span");
-            noPermissionText.textContent = "您无权限";
-            tdActions.appendChild(noPermissionText);
+            tdActions.display = "none";
+            let el = document.getElementById("action");
+            el.style.color = "transparent";
+            el.style.backgroundColor = "#4a99e2";
           }
 
           tr.appendChild(tdId);
