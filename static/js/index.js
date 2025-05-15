@@ -1,3 +1,4 @@
+// 等网页加载完成后执行代码
 window.onload = function () {
   const studentName = localStorage.getItem("student_name");
   const isAdmin = localStorage.getItem("is_admin") === "true";
@@ -9,7 +10,7 @@ window.onload = function () {
   const loginPrompt = document.querySelector("#loginPrompt");
 
   if (studentName) {
-    // 显示欢迎信息并控制登录/注册链接显示
+    // 登录成功后显示欢迎，并隐藏登录注册
     welcomeMessage.textContent = `欢迎您, ${studentName}`;
     logoutBtn.style.display = "inline";
     loginLink.style.display = "none";

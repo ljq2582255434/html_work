@@ -25,7 +25,7 @@ document.querySelector("button").addEventListener("click", function (event) {
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
-        // ✅ 保存登录信息到 localStorage
+        // 保存登录信息到 localStorage
         localStorage.setItem("student_id", studentId);
         localStorage.setItem("student_name", data.student_name);
         localStorage.setItem("is_admin", data.is_admin); // 注意和 index 页面保持一致
