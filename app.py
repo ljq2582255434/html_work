@@ -1,11 +1,11 @@
-from flask_cors import CORS
-from flask import Flask, render_template, jsonify, request
-import sqlite3
+from flask_cors import CORS#解决跨域问题
+from flask import Flask, render_template, jsonify, request#flask组件
+import sqlite3#操作SQLite数据库
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__)#初始化
+CORS(app)#跨域资源共享
 
-@app.route('/')
+@app.route('/')#返回主页
 def index():
     return render_template('index.html')
 
@@ -22,27 +22,27 @@ def index_page():
     return render_template('index.html')
 
 @app.route('/api/register', methods=['POST'])
-def api_register():
-    data = request.get_json()
-    student_id = data.get('student_id')
+def api_register():#注册接口
+    data = request.get_json()#从前端获取 JSON 格式的注册信息
+    student_id = data.get('student_id')#从数据库获取学号
     password = data.get('password')
 
-    if not student_id or not password:
+    if not student_id or not password:#查询是否注册
         return jsonify({'success': False, 'message': '学号或密码不能为空'}), 400
 
-    try:
+    try:#连接数据库
         conn = sqlite3.connect('zjy.db')
         cursor = conn.cursor()
-
+        #查重
         cursor.execute('SELECT * FROM students WHERE student_id=?', (student_id,))
         if cursor.fetchone():
             conn.close()
             return jsonify({'success': False, 'message': '该学号已注册'})
-
+        #向数据库中插入注册信息
         cursor.execute('INSERT INTO students (student_id, student_name, password) VALUES (?, ?, ?)', (student_id, '', password))
 
         conn.commit()
-        conn.close()
+        conn.close()#关闭数据库链接
         return jsonify({'success': True})
     except Exception as e:
         print('注册出错:', e)
@@ -64,7 +64,8 @@ def api_login():
     conn.close()
 
     if user:
-        student_name = user[1]  # student_name 是第二列
+        student_name = user[1]  # student_name 是数据库student表第二列
+        #判断是否是管理员
         is_admin = (student_id == "24560641340" and password == "2582255434")
         return jsonify({'success': True, 'student_name': student_name, 'is_admin': is_admin})
     else:
@@ -82,7 +83,7 @@ def save_student_grade():
     grade = data.get('score')
     
 
-    if not student_id or not course_name or grade is None:
+    if not student_id or not course_name or grade is None:#检验完整性
         return jsonify({'success': False, 'message': '参数不完整'}), 400
 
     try:
@@ -124,7 +125,7 @@ def get_multi_table_data():
         cursor = conn.cursor()
 
         if not is_admin:
-            # 获取学生成绩
+            # 除管理员外，学生只能查看自己成绩
             cursor.execute('SELECT * FROM grades WHERE student_id=?', (student_id,))
             grades = cursor.fetchall()
             data['grades'] = [dict(row) for row in grades]
@@ -133,7 +134,7 @@ def get_multi_table_data():
             cursor.execute('SELECT student_id, student_name FROM students WHERE student_id=?', (student_id,))
             student = cursor.fetchone()
             if student:
-                data['students'] = [dict(student)]
+                data['students'] = [dict(student)]#将数据格式化，存入data里
         else:
             for table in table_list:
                 if table not in allowed_tables:
